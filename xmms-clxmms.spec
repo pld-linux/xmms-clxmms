@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		Applications/Sound
 Source0:	http://kolos.math.uni.lodz.pl/~bajcik/stuff/clxmms-%{version}.tar.gz
+# Source0-md5:	9ed0759c6e3765c0f9c2d65784db35f0
 BuildRequires:	xmms-devel
 BuildRequires:	readline-devel
 Requires:	xmms
