@@ -26,7 +26,7 @@ odtwarzaczem XMMS z linii poleceñ.
 
 %build
 %{__make} \
-	CC=%{__cc} \
+	CC="%{__cc}" \
 	OPTFL="%{rpmcflags}"
 
 %install
@@ -34,8 +34,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man1}
 
 install clxmms $RPM_BUILD_ROOT%{_bindir}
-install clxmms.1 $RPM_BUILD_ROOT%{_mandir}/man1/
-
+install clxmms.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 %clean
 rm -rf $RPM_BUILD_ROOT
