@@ -1,5 +1,5 @@
 Summary:	Command-Line Xmms controlling program
-Summary(pl):	Program kontroluj±cy xmms z linii poleceñ
+Summary(pl):	Program kontroluj±cy XMMS-a z linii poleceñ
 Name:		xmms-clxmms
 Version:	0.6
 Release:	3
@@ -14,11 +14,11 @@ Requires:	xmms
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Don't like GUI? This program gives you a control on a xmms player.
+Don't like GUI? This program gives you a control on a XMMS player.
 
 %description -l pl
 Nie lubisz interfejsu graficznego? Ten program daje Ci kontrolê nad
-odtwarzaczem xmms.
+odtwarzaczem XMMS z linii poleceñ.
 
 %prep
 %setup -q -n clxmms-%{version}
