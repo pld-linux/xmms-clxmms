@@ -1,0 +1,108 @@
+--- ../BUILD/clxmms-0.6/clxmms.c	2003-01-19 21:16:36.000000000 +0100
++++ clxmms.c	2004-02-19 04:32:56.000000000 +0100
+@@ -30,6 +30,10 @@
+ #include <unistd.h>
+ #include <errno.h>
+ 
++// VOLUME & BALANCE procent change:
++#define VOL_PROC 10
++#define VOL_PROC2 20
++
+ #if 1
+ #define CLBOLD   "\033[1m"
+ #define CLNORMAL "\033[0m"
+@@ -65,6 +69,11 @@
+      "  status\n"
+      "  find [-i] pattern\n"
+      "  loop\n"
++     "  volume\n"
++     "	down\n"
++     "  up\n"
++     "  left\n"
++     "  right\n"
+      "  shuffle\n"
+ 	 "  ls\n"
+ 	 "  pwd\n"
+@@ -101,8 +110,13 @@
+ 	CMD_CD,
+ 	CMD_PWD,
+ 	/*CMD_SESSION,*/
+-	CMD__END,
++	CMD_GET_VOL,
++	CMD_SET_VOL_UP,		
++	CMD_SET_VOL_DN,		
++	CMD_SET_VOL_R,		
++	CMD_SET_VOL_L,		
+ 	CMD_UNKNOWN,
++	CMD__END,
+ 	CMD_A_PART
+ } command_t;
+ 
+@@ -129,8 +143,14 @@
+ 	[CMD_LS] = "ls",
+ 	[CMD_CD] = "cd",
+ 	[CMD_PWD] = "pwd",
++	[CMD_GET_VOL] = "volume",
++	[CMD_SET_VOL_UP] = "up",
++	[CMD_SET_VOL_DN] = "down",
++	[CMD_SET_VOL_R] = "right",
++	[CMD_SET_VOL_L] = "left",
+ 	/*[CMD_SESSION] = "session",*/
+ 	[CMD__END] = NULL
++
+ };
+ 
+ command_t GetCommand(char *cmdstr)
+@@ -355,7 +375,34 @@
+ 		case CMD_LOOP:  xmms_remote_toggle_repeat(session); break;
+ 		case CMD_SHUFFLE:  xmms_remote_toggle_shuffle(session); break;
+ 		case CMD_STATUS: XmmsStatus(); break;
+-		
++
++		int vol=0; //magic:
++		case CMD_SET_VOL_UP:	vol=VOL_PROC2;
++		case CMD_SET_VOL_DN:	vol-=VOL_PROC;
++		case CMD_GET_VOL: 
++			       {
++				int vl,vr,bt;				      
++			       xmms_remote_get_volume(session, &vl, &vr);
++			       vl+=vol;
++			       vr+=vol;
++			       xmms_remote_set_volume(session, vl, vr);
++			       xmms_remote_get_volume(session, &vl, &vr);
++			       bt=xmms_remote_get_balance(session);
++			       printf("Left:%d Right:%d Balance: %d\n", vl, vr,bt);
++			       }
++				break;
++		int bal=0;				 
++		case CMD_SET_VOL_R:	bal=VOL_PROC2;
++		case CMD_SET_VOL_L:	bal-=VOL_PROC;
++					{
++						int bt=0;
++						bt=xmms_remote_get_balance(session);
++						bt+=bal;
++						xmms_remote_set_balance(session,bt);
++						bt=xmms_remote_get_balance(session);
++						printf("Balance: %d\n", bt);
++					}
++			break;
+ 		case CMD_POS:
+ 			if (argc == 2)
+ 				xmms_remote_set_playlist_pos(session, strtol(argv[1], NULL, 10) - 1);
+@@ -494,7 +541,6 @@
+ 
+ 		case CMD_LIST: Do_List(argc, argv); break;
+ 		case CMD_FIND: Do_Find(argc, argv); break;
+-		
+ 		case CMD_A_PART: break; /* user was told */
+ 		case CMD_HELP:
+ 		case CMD_UNKNOWN:
+@@ -729,6 +775,5 @@
+ } /* main */
+ 
+ 
+-
+-
+-
++// This must be last line !
++// vi:syntax=c:tw=78:ts=3:sw=4
