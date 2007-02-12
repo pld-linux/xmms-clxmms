@@ -1,5 +1,5 @@
 Summary:	Command-Line Xmms controlling program
-Summary(pl.UTF-8):   Program kontrolujący XMMS-a z linii poleceń
+Summary(pl.UTF-8):	Program kontrolujący XMMS-a z linii poleceń
 Name:		xmms-clxmms
 Version:	0.6
 Release:	4
