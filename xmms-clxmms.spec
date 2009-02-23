@@ -2,7 +2,7 @@ Summary:	Command-Line Xmms controlling program
 Summary(pl.UTF-8):	Program kontrolujący XMMS-a z linii poleceń
 Name:		xmms-clxmms
 Version:	0.6
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/Sound
 Source0:	http://kolos.math.uni.lodz.pl/~bajcik/stuff/clxmms-%{version}.tar.gz
