@@ -22,7 +22,7 @@ odtwarzaczem XMMS z linii poleceń.
 
 %prep
 %setup -q -n clxmms-%{version}
-%patch0 -p0
+%patch -P0 -p0
 
 %build
 %{__make} \
