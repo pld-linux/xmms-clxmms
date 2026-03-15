@@ -1,0 +1,11 @@
+--- clxmms.c
++++ clxmms.c
+@@ -512,7 +512,7 @@
+ 						continue;
+ 					printf("Deleting: \"%s\": ", file);
+ 					if (unlink(file))
+-						printf(color ? CLRED "%s" CLNORMAL "\n" : "%s\n", sys_errlist[errno]);
++						printf(color ? CLRED "%s" CLNORMAL "\n" : "%s\n", strerror(errno));
+ 					else
+ 						printf(color ? CLGREEN "OK" CLNORMAL "\n" : "OK\n");
+ 						
